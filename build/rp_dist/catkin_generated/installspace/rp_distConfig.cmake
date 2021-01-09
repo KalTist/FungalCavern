@@ -67,14 +67,14 @@ set(rp_dist_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(rp_dist_SOURCE_PREFIX /home/nvidia/Code/Drone_ws/src/rp_dist)
-  set(rp_dist_DEVEL_PREFIX /home/nvidia/Code/Drone_ws/devel)
+  set(rp_dist_SOURCE_PREFIX /home/ubuntu/Code/rp_dist_ws/src/rp_dist)
+  set(rp_dist_DEVEL_PREFIX /home/ubuntu/Code/rp_dist_ws/devel)
   set(rp_dist_INSTALL_PREFIX "")
   set(rp_dist_PREFIX ${rp_dist_DEVEL_PREFIX})
 else()
   set(rp_dist_SOURCE_PREFIX "")
   set(rp_dist_DEVEL_PREFIX "")
-  set(rp_dist_INSTALL_PREFIX /home/nvidia/Code/Drone_ws/install)
+  set(rp_dist_INSTALL_PREFIX /home/ubuntu/Code/rp_dist_ws/install)
   set(rp_dist_PREFIX ${rp_dist_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/nvidia/Code/Drone_ws/install/lib;/home/nvidia/Code/Drone_ws/devel/lib;/home/nvidia/Code/catkin_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/ubuntu/Code/rp_dist_ws/install/lib;/home/ubuntu/Code/smach_ws/devel/lib;/home/ubuntu/Code/catkin_ws/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

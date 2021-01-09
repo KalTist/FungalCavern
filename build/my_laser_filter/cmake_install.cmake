@@ -1,8 +1,8 @@
-# Install script for directory: /home/nvidia/Code/Drone_ws/src/my_laser_filter
+# Install script for directory: /home/ubuntu/Code/rp_dist_ws/src/my_laser_filter
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/nvidia/Code/Drone_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/Code/rp_dist_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/nvidia/Code/Drone_ws/build/my_laser_filter/catkin_generated/installspace/my_laser_filter.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/Code/rp_dist_ws/build/my_laser_filter/catkin_generated/installspace/my_laser_filter.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_laser_filter/cmake" TYPE FILE FILES
-    "/home/nvidia/Code/Drone_ws/build/my_laser_filter/catkin_generated/installspace/my_laser_filterConfig.cmake"
-    "/home/nvidia/Code/Drone_ws/build/my_laser_filter/catkin_generated/installspace/my_laser_filterConfig-version.cmake"
+    "/home/ubuntu/Code/rp_dist_ws/build/my_laser_filter/catkin_generated/installspace/my_laser_filterConfig.cmake"
+    "/home/ubuntu/Code/rp_dist_ws/build/my_laser_filter/catkin_generated/installspace/my_laser_filterConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_laser_filter" TYPE FILE FILES "/home/nvidia/Code/Drone_ws/src/my_laser_filter/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_laser_filter" TYPE FILE FILES "/home/ubuntu/Code/rp_dist_ws/src/my_laser_filter/package.xml")
 endif()
 

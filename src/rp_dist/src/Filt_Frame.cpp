@@ -58,6 +58,7 @@ float rp_frame::get_pole(void)
     int index;
     // cout<<"get_pole: "<<endl;
     get_jmp_pts();
+    possible_poles();
     remove_outline();
     pole_pair = sel_best_pair();
     if(pole_pair.empty()){
@@ -75,46 +76,48 @@ float rp_frame::get_pole(void)
     return dist;
 }
 
-void rp_frame::remove_outline(void)
+void rp_frame::possible_poles(void)
 {
-    // split into 2 parts later
     int i = 0;
-    float gap_r, gap_a;
-    vector<float> gaps;
-    vector<float> sortgaps;
-    vector<dt_point> alter;
-    float mid_dist, mid_angle;
     float dist_var, angle_var, width_var;
     options.clear();
-    // cout<<"remove_outline"<<endl;
-    // cout<<"part1_possible_poles: ";
     cout<<"options: ";
     closest = 10;
     for(i = 0; i < jmp_pts.size()-1; i++)
-    {
+    {   // rule_one: far-near-far jump points pair
         if(jmp_pts[i].type == -1 && jmp_pts[i+1].type == 1){
             dist_var = jmp_pts[i].distance - jmp_pts[i+1].distance;
+            // rule_two: left and right side of pole have same distance
             if(dist_var > - 0.03 && dist_var < 0.03){
-                // cout<<jmp_pts[i].distance<<jmp_pts[i+1].distance<<",";
                 angle_var = jmp_pts[i+1].angle - jmp_pts[i].angle;
                 width_var = angle_var / 1.8 * pi * jmp_pts[i].distance - pole_width;
+                // rule_three: pole has a certain width
                 if( width_var < jmp_pts[i].distance * angle.inc ){
                     options.push_back(jmp_pts[i]);
                     options.push_back(jmp_pts[i+1]);
+                    // backup the distance of the closest possible pole
                     if(jmp_pts[i].distance < closest){
                         closest = jmp_pts[i].distance;
                     }
                     cout<<jmp_pts[i].distance<<",";
                 }
-                // cout<<width_var<<"|";
             }
         }
     }
-    cout<<"num: "<<options.size()<<endl;
+    // cout<<"num: "<<options.size()<<endl;
+    cout<<endl;
+    return;
+}
+void rp_frame::remove_outline(void)
+{
+    int i = 0;
+    float gap_r, gap_a;
+    vector<float> gaps;
+    vector<float> sortgaps;
+    vector<dt_point> alter;
     if(options.empty()){
         return;// no possible pole
     }
-    // cout<<"part2_detect_outline: ";
     cout<<"Filted: ";
     gaps.clear();
     // calculate gaps between possible poles
@@ -128,34 +131,23 @@ void rp_frame::remove_outline(void)
     if(gaps.empty()){
         return;// only one possible pole
     }
-    // select a threshold
+    // select a threshold, Apriori
     sortgaps = gaps;
     sort(sortgaps.begin(), sortgaps.end());
-    thres_gap = sortgaps[int(sortgaps.size()/2)] + 0.5;
+    thres_gap = sortgaps[int(sortgaps.size()/2)];
+    thres_gap = thres_gap < 0.2 ? 0.2 : thres_gap / 2 + 0.1;
     cout<<"tsh:"<<thres_gap<<";";
     // real pole has both side gaps > threshold
     // and has to be closer, not farther
-    // head 2
-    if(gaps[0] > thres_gap && options[1].distance < options[2].distance){
-        alter.push_back(options[0]);
-        alter.push_back(options[1]);
-    }
-    // middle
-    for(i = 1; i < gaps.size() - 1; i++)
-    {
-        if(gaps[i-1] >= thres_gap && gaps[i] >= thres_gap){
-            if(options[i*2].distance < options[i*2-1].distance &&\
-                options[i*2+1].distance < options[i*2+2].distance){
+    for(i = 0; i < gaps.size(); i++)
+    {   // considering head and tail
+        if( (i == 0 || gaps[i-1] >= thres_gap) && gaps[i] >= thres_gap){
+            if( (i == 0 || options[i*2].distance < options[i*2-1].distance) &&\
+                (i == gaps.size() - 1 || options[i*2+1].distance < options[i*2+2].distance)){
                 alter.push_back(options[i*2]);
                 alter.push_back(options[i*2+1]);
             }
         }
-    }
-    // tail 2
-    i = gaps.size() - 1;
-    if(gaps[i] > thres_gap && options[i*2].distance < options[i*2-1].distance){
-        alter.push_back(options[i*2]);
-        alter.push_back(options[i*2+1]);
     }
     options = alter;
     cout<<"left "<<options.size()/2<<" pair(s): ";
@@ -187,10 +179,7 @@ vector<dt_point> rp_frame::sel_best_pair(void)
     }
     if(pole[0].distance > closest + 0.3 || pole[1].distance > closest + 0.3){
         pole.clear();
-        // cout<<"empty"<<endl;
-        // return pole;
     }
-    // cout<<pole[0].distance<<","<<pole[1].distance<<endl;
     closest = 10;
     return pole;
 }

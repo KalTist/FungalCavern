@@ -1,2 +1,2 @@
 my_laser_filter:rp_dist
--DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=14 -DCATKIN_DEVEL_PREFIX=/home/nvidia/Code/Drone_ws/devel -DCMAKE_INSTALL_PREFIX=/home/nvidia/Code/Drone_ws/install -G Unix Makefiles
+-DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=14 -DCATKIN_DEVEL_PREFIX=/home/ubuntu/Code/rp_dist_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/Code/rp_dist_ws/install -G Unix Makefiles

@@ -1,2 +1,2 @@
 - setup-file:
-    local-name: /home/nvidia/Code/Drone_ws/install/setup.sh
+    local-name: /home/ubuntu/Code/rp_dist_ws/install/setup.sh

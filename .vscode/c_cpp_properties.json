@@ -1,19 +1,24 @@
 {
-  "configurations": [
-    {
-      "browse": {
-        "databaseFilename": "",
-        "limitSymbolsToIncludedHeaders": true
-      },
-      "includePath": [
-        "/home/nvidia/Code/catkin_ws/devel/include/**",
-        "/opt/ros/melodic/include/**",
-        "/home/nvidia/Code/catkin_ws/src/realsense-ros/realsense2_camera/include/**",
-        "/home/nvidia/Code/catkin_ws/src/serial_bridge/include/**",
-        "/usr/include/**",
-        "~/Code/Drone_ws/**"
-      ],
-      "name": "ROS"
-    }
-  ]
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/ubuntu/Code/catkin_ws/devel/include/**",
+                "/opt/ros/melodic/include/**",
+                "/home/ubuntu/Code/catkin_ws/src/realsense-ros/realsense2_camera/include/**",
+                "/home/ubuntu/Code/catkin_ws/src/serial_bridge/include/**",
+                "/usr/include/**",
+                "~/Code/rp_dist_ws/**"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++14"
+        }
+    ],
+    "version": 4
 }

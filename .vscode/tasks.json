@@ -16,6 +16,14 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "catkin_make",
+			"problemMatcher": [
+				"$catkin-gcc"
+			],
+			"group": "build",
+			"label": "catkin_make: build"
 		}
 	]
 }

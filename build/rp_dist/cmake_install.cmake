@@ -1,8 +1,8 @@
-# Install script for directory: /home/nvidia/Code/Drone_ws/src/rp_dist
+# Install script for directory: /home/ubuntu/Code/rp_dist_ws/src/rp_dist
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/nvidia/Code/Drone_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/Code/rp_dist_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/nvidia/Code/Drone_ws/build/rp_dist/catkin_generated/installspace/rp_dist.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/Code/rp_dist_ws/build/rp_dist/catkin_generated/installspace/rp_dist.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rp_dist/cmake" TYPE FILE FILES
-    "/home/nvidia/Code/Drone_ws/build/rp_dist/catkin_generated/installspace/rp_distConfig.cmake"
-    "/home/nvidia/Code/Drone_ws/build/rp_dist/catkin_generated/installspace/rp_distConfig-version.cmake"
+    "/home/ubuntu/Code/rp_dist_ws/build/rp_dist/catkin_generated/installspace/rp_distConfig.cmake"
+    "/home/ubuntu/Code/rp_dist_ws/build/rp_dist/catkin_generated/installspace/rp_distConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rp_dist" TYPE FILE FILES "/home/nvidia/Code/Drone_ws/src/rp_dist/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rp_dist" TYPE FILE FILES "/home/ubuntu/Code/rp_dist_ws/src/rp_dist/package.xml")
 endif()
 

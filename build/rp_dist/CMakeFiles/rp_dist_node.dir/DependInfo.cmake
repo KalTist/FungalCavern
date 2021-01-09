@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/nvidia/Code/Drone_ws/src/rp_dist/src/Filt_Frame.cpp" "/home/nvidia/Code/Drone_ws/build/rp_dist/CMakeFiles/rp_dist_node.dir/src/Filt_Frame.cpp.o"
-  "/home/nvidia/Code/Drone_ws/src/rp_dist/src/RplidarDist.cpp" "/home/nvidia/Code/Drone_ws/build/rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDist.cpp.o"
-  "/home/nvidia/Code/Drone_ws/src/rp_dist/src/RplidarDistServer.cpp" "/home/nvidia/Code/Drone_ws/build/rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDistServer.cpp.o"
+  "/home/ubuntu/Code/rp_dist_ws/src/rp_dist/src/Filt_Frame.cpp" "/home/ubuntu/Code/rp_dist_ws/build/rp_dist/CMakeFiles/rp_dist_node.dir/src/Filt_Frame.cpp.o"
+  "/home/ubuntu/Code/rp_dist_ws/src/rp_dist/src/RplidarDist.cpp" "/home/ubuntu/Code/rp_dist_ws/build/rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDist.cpp.o"
+  "/home/ubuntu/Code/rp_dist_ws/src/rp_dist/src/RplidarDistServer.cpp" "/home/ubuntu/Code/rp_dist_ws/build/rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDistServer.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -19,7 +19,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/nvidia/Code/Drone_ws/src/rp_dist/include/rp_dist"
+  "/home/ubuntu/Code/rp_dist_ws/src/rp_dist/include/rp_dist"
   "/opt/ros/melodic/include"
   "/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   )

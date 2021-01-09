@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nvidia/Code/Drone_ws/src
+CMAKE_SOURCE_DIR = /home/ubuntu/Code/rp_dist_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nvidia/Code/Drone_ws/build
+CMAKE_BINARY_DIR = /home/ubuntu/Code/rp_dist_ws/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -114,8 +114,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -137,14 +137,14 @@ install/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/nvidia/Code/Drone_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/nvidia/Code/Drone_ws/build/CMakeFiles /home/nvidia/Code/Drone_ws/build/rp_dist/CMakeFiles/progress.marks
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 rp_dist/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nvidia/Code/Drone_ws/build/CMakeFiles 0
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/Code/rp_dist_ws/build/CMakeFiles /home/ubuntu/Code/rp_dist_ws/build/rp_dist/CMakeFiles/progress.marks
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f CMakeFiles/Makefile2 rp_dist/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/Code/rp_dist_ws/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 rp_dist/clean
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f CMakeFiles/Makefile2 rp_dist/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,22 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 rp_dist/preinstall
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f CMakeFiles/Makefile2 rp_dist/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 rp_dist/preinstall
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f CMakeFiles/Makefile2 rp_dist/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/nvidia/Code/Drone_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 rp_dist/CMakeFiles/rp_dist_node.dir/rule:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 rp_dist/CMakeFiles/rp_dist_node.dir/rule
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f CMakeFiles/Makefile2 rp_dist/CMakeFiles/rp_dist_node.dir/rule
 .PHONY : rp_dist/CMakeFiles/rp_dist_node.dir/rule
 
 # Convenience name for target.
@@ -179,7 +179,7 @@ rp_dist_node: rp_dist/CMakeFiles/rp_dist_node.dir/rule
 
 # fast build rule for target.
 rp_dist_node/fast:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/build
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/build
 .PHONY : rp_dist_node/fast
 
 src/Filt_Frame.o: src/Filt_Frame.cpp.o
@@ -188,7 +188,7 @@ src/Filt_Frame.o: src/Filt_Frame.cpp.o
 
 # target to build an object file
 src/Filt_Frame.cpp.o:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/Filt_Frame.cpp.o
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/Filt_Frame.cpp.o
 .PHONY : src/Filt_Frame.cpp.o
 
 src/Filt_Frame.i: src/Filt_Frame.cpp.i
@@ -197,7 +197,7 @@ src/Filt_Frame.i: src/Filt_Frame.cpp.i
 
 # target to preprocess a source file
 src/Filt_Frame.cpp.i:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/Filt_Frame.cpp.i
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/Filt_Frame.cpp.i
 .PHONY : src/Filt_Frame.cpp.i
 
 src/Filt_Frame.s: src/Filt_Frame.cpp.s
@@ -206,7 +206,7 @@ src/Filt_Frame.s: src/Filt_Frame.cpp.s
 
 # target to generate assembly for a file
 src/Filt_Frame.cpp.s:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/Filt_Frame.cpp.s
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/Filt_Frame.cpp.s
 .PHONY : src/Filt_Frame.cpp.s
 
 src/RplidarDist.o: src/RplidarDist.cpp.o
@@ -215,7 +215,7 @@ src/RplidarDist.o: src/RplidarDist.cpp.o
 
 # target to build an object file
 src/RplidarDist.cpp.o:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDist.cpp.o
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDist.cpp.o
 .PHONY : src/RplidarDist.cpp.o
 
 src/RplidarDist.i: src/RplidarDist.cpp.i
@@ -224,7 +224,7 @@ src/RplidarDist.i: src/RplidarDist.cpp.i
 
 # target to preprocess a source file
 src/RplidarDist.cpp.i:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDist.cpp.i
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDist.cpp.i
 .PHONY : src/RplidarDist.cpp.i
 
 src/RplidarDist.s: src/RplidarDist.cpp.s
@@ -233,7 +233,7 @@ src/RplidarDist.s: src/RplidarDist.cpp.s
 
 # target to generate assembly for a file
 src/RplidarDist.cpp.s:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDist.cpp.s
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDist.cpp.s
 .PHONY : src/RplidarDist.cpp.s
 
 src/RplidarDistServer.o: src/RplidarDistServer.cpp.o
@@ -242,7 +242,7 @@ src/RplidarDistServer.o: src/RplidarDistServer.cpp.o
 
 # target to build an object file
 src/RplidarDistServer.cpp.o:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDistServer.cpp.o
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDistServer.cpp.o
 .PHONY : src/RplidarDistServer.cpp.o
 
 src/RplidarDistServer.i: src/RplidarDistServer.cpp.i
@@ -251,7 +251,7 @@ src/RplidarDistServer.i: src/RplidarDistServer.cpp.i
 
 # target to preprocess a source file
 src/RplidarDistServer.cpp.i:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDistServer.cpp.i
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDistServer.cpp.i
 .PHONY : src/RplidarDistServer.cpp.i
 
 src/RplidarDistServer.s: src/RplidarDistServer.cpp.s
@@ -260,7 +260,7 @@ src/RplidarDistServer.s: src/RplidarDistServer.cpp.s
 
 # target to generate assembly for a file
 src/RplidarDistServer.cpp.s:
-	cd /home/nvidia/Code/Drone_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDistServer.cpp.s
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(MAKE) -f rp_dist/CMakeFiles/rp_dist_node.dir/build.make rp_dist/CMakeFiles/rp_dist_node.dir/src/RplidarDistServer.cpp.s
 .PHONY : src/RplidarDistServer.cpp.s
 
 # Help Target
@@ -297,6 +297,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/nvidia/Code/Drone_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/ubuntu/Code/rp_dist_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

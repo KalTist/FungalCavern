@@ -29,7 +29,11 @@ private:
     vector<float> distances;
     vector<dt_point> jmp_pts;
     vector<dt_point> options;
+    // find jump points, distances --> jmp_pts
     void get_jmp_pts(void);
+    // find possible poles, jmp_pts --> options
+    void possible_poles(void);
+    // filt possible poles, options --> options
     void remove_outline(void);
     vector<dt_point> sel_best_pair(void);
 public:

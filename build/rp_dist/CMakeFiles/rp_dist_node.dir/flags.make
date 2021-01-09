@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=c++11 -std=gnu++14
 
 CXX_DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"rp_dist\"
 
-CXX_INCLUDES = -I/home/nvidia/Code/Drone_ws/src/rp_dist/include/rp_dist -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp 
+CXX_INCLUDES = -I/home/ubuntu/Code/rp_dist_ws/src/rp_dist/include/rp_dist -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp 
 

@@ -1,4 +1,4 @@
-prefix=/home/nvidia/Code/Drone_ws/devel
+prefix=/home/ubuntu/Code/rp_dist_ws/devel
 
 Name: my_laser_filter
 Description: Description of my_laser_filter

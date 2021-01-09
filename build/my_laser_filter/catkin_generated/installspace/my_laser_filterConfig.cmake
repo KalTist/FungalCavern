@@ -67,14 +67,14 @@ set(my_laser_filter_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(my_laser_filter_SOURCE_PREFIX /home/nvidia/Code/Drone_ws/src/my_laser_filter)
-  set(my_laser_filter_DEVEL_PREFIX /home/nvidia/Code/Drone_ws/devel)
+  set(my_laser_filter_SOURCE_PREFIX /home/ubuntu/Code/rp_dist_ws/src/my_laser_filter)
+  set(my_laser_filter_DEVEL_PREFIX /home/ubuntu/Code/rp_dist_ws/devel)
   set(my_laser_filter_INSTALL_PREFIX "")
   set(my_laser_filter_PREFIX ${my_laser_filter_DEVEL_PREFIX})
 else()
   set(my_laser_filter_SOURCE_PREFIX "")
   set(my_laser_filter_DEVEL_PREFIX "")
-  set(my_laser_filter_INSTALL_PREFIX /home/nvidia/Code/Drone_ws/install)
+  set(my_laser_filter_INSTALL_PREFIX /home/ubuntu/Code/rp_dist_ws/install)
   set(my_laser_filter_PREFIX ${my_laser_filter_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/nvidia/Code/Drone_ws/install/lib;/home/nvidia/Code/Drone_ws/devel/lib;/home/nvidia/Code/catkin_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/ubuntu/Code/rp_dist_ws/install/lib;/home/ubuntu/Code/smach_ws/devel/lib;/home/ubuntu/Code/catkin_ws/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

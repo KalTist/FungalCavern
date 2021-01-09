@@ -1,8 +1,0 @@
-prefix=/home/nvidia/Code/Drone_ws/install
-
-Name: rplidar_distance_measure_server
-Description: Description of rplidar_distance_measure_server
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
