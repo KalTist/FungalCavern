@@ -19,6 +19,7 @@ class RplidarDistNode
         std::string _subscribe_rplidar_topic;
         std::string _pole_distance_topic;
 
+        rp_frame rpfilter;
 
 
         void SubscriberInit();

@@ -8,6 +8,7 @@ RplidarDistNode::RplidarDistNode(ros::NodeHandle* nh,ros::NodeHandle* ns):_nh(*n
     _ns.param<std::string>("pole_distance_topic",_pole_distance_topic,"pole_distance");
     SubscriberInit();
     PublisherInit();
+    this->rpfilter = rp_frame();
 }
 
 RplidarDistNode::~RplidarDistNode()
@@ -29,7 +30,17 @@ void RplidarDistNode::PublisherInit()
 void RplidarDistNode::Rplidar_Callback(const sensor_msgs::LaserScan::ConstPtr& scan)
 {
     vector<float> vec(begin(scan->ranges),end(scan->ranges));
-    rp_frame rpftr = rp_frame(vec, scan->angle_min, scan->angle_increment);
-    float dist=rpftr.get_pole();
-    std::cout<<dist<<std::endl;
+    dt_point pole;
+    this->rpfilter.get_distance(vec);
+    this->rpfilter.set_angle(scan->angle_min, scan->angle_max, scan->angle_increment);
+    pole = this->rpfilter.get_pole();
+    if(pole.distance == 0){ pole.angle = 0; }
+    if(pole.type == 0){
+        std::cout<<"discarded:";
+    }else if(pole.type == 1){
+        std::cout<<"reliable: ";
+    }else{
+        std::cout<<"dubious:  ";
+    }
+    std::cout<<pole.distance<<",   \t"<<pole.angle<<std::endl;
 }

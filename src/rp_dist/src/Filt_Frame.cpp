@@ -2,22 +2,32 @@
 
 using std::cout;
 
-rp_frame::rp_frame(vector<float> ranges, float anglemin, float angleinc)
+rp_frame::rp_frame(void)
 {
-    int i = 0;
-    // cout<<"init rp_frame instance"<<endl;
-    angle.min = anglemin;
-    angle.inc = angleinc;
-    for(i=0; i<ranges.size(); i++){
-        distances.push_back(ranges[i]);
-    }
+    // default, good in overall
     jump_thres = 0.2;
     pole_width = 2.5;
+    min_gap = 0.2;
     closest = 10;
+    consistent_dist = 0.1;
+    consistent_angle = 0.09;
+    history.type = -1;
 }
 
 rp_frame::~rp_frame(void)
 {
+}
+
+void rp_frame::get_distance(vector<float> ranges)
+{
+    distances = ranges;
+}
+
+void rp_frame::set_angle(float anglemin, float anglemax, float angleinc)
+{
+    angle.min = anglemin;
+    angle.max = anglemax;
+    angle.inc = angleinc;
 }
 
 void rp_frame::get_jmp_pts(void)
@@ -50,10 +60,9 @@ void rp_frame::get_jmp_pts(void)
     // cout<<jmp_pts.size()<<endl;
 }
 
-float rp_frame::get_pole(void)
+dt_point rp_frame::get_pole(void)
 {
     vector<dt_point> pole_pair;
-    dt_point pole_center;
     float dist;
     int index;
     // cout<<"get_pole: "<<endl;
@@ -62,18 +71,21 @@ float rp_frame::get_pole(void)
     remove_outline();
     pole_pair = sel_best_pair();
     if(pole_pair.empty()){
-        // cout<<"empty"<<endl;
-        return 0.0;
+        // define angle in middle, specially used for isConsistent
+        best_pole.angle = (angle.min + angle.max) / 2;
+        best_pole.distance = 0;
     }
-    // restore best_pair to one pole
-    // using original data instead of jmp_pts
-    pole_center.angle = (pole_pair[0].angle + pole_pair[1].angle) / 2;
-    index = int((pole_center.angle - angle.min) / angle.inc + 0.2);
-    dist = distances[index];
-    pole_center.type = 0;
-    pole_center.distance = dist;
-    // cout<<"result: ";
-    return dist;
+    else{
+        // restore best_pair to one pole
+        // using original data instead of jmp_pts
+        best_pole.angle = (pole_pair[0].angle + pole_pair[1].angle) / 2;
+        index = int((best_pole.angle - angle.min) / angle.inc + 0.2);
+        best_pole.angle = angle.min + angle.inc * index;
+        best_pole.distance = distances[index];
+    }
+    best_pole.type = isConsistent();
+    history = best_pole;
+    return best_pole;
 }
 
 void rp_frame::possible_poles(void)
@@ -81,7 +93,7 @@ void rp_frame::possible_poles(void)
     int i = 0;
     float dist_var, angle_var, width_var;
     options.clear();
-    cout<<"options: ";
+    // cout<<"options: ";
     closest = 10;
     for(i = 0; i < jmp_pts.size()-1; i++)
     {   // rule_one: far-near-far jump points pair
@@ -90,7 +102,7 @@ void rp_frame::possible_poles(void)
             // rule_two: left and right side of pole have same distance
             if(dist_var > - 0.03 && dist_var < 0.03){
                 angle_var = jmp_pts[i+1].angle - jmp_pts[i].angle;
-                width_var = angle_var / 1.8 * pi * jmp_pts[i].distance - pole_width;
+                width_var = angle_var * jmp_pts[i].distance - pole_width;
                 // rule_three: pole has a certain width
                 if( width_var < jmp_pts[i].distance * angle.inc ){
                     options.push_back(jmp_pts[i]);
@@ -99,33 +111,32 @@ void rp_frame::possible_poles(void)
                     if(jmp_pts[i].distance < closest){
                         closest = jmp_pts[i].distance;
                     }
-                    cout<<jmp_pts[i].distance<<",";
+                    // cout<<jmp_pts[i].distance<<",";
                 }
             }
         }
     }
     // cout<<"num: "<<options.size()<<endl;
-    cout<<endl;
     return;
 }
 void rp_frame::remove_outline(void)
 {
     int i = 0;
-    float gap_r, gap_a;
+    float gap_r, gap_a, thres_gap;
     vector<float> gaps;
     vector<float> sortgaps;
     vector<dt_point> alter;
     if(options.empty()){
         return;// no possible pole
     }
-    cout<<"Filted: ";
+    // cout<<"Filted: ";
     gaps.clear();
     // calculate gaps between possible poles
     for(i = 2; i < options.size(); i += 2)
     {
         gap_r = options[i].distance - options[i-1].distance;
         gap_a = gap_r < 0 ? options[i].distance : options[i-1].distance;
-        gap_a *= pi / 180 * (options[i].angle - options[i-1].angle);
+        gap_a *= (options[i].angle - options[i-1].angle);
         gaps.push_back(gap_r*gap_r + gap_a*gap_a);
     }
     if(gaps.empty()){
@@ -135,8 +146,8 @@ void rp_frame::remove_outline(void)
     sortgaps = gaps;
     sort(sortgaps.begin(), sortgaps.end());
     thres_gap = sortgaps[int(sortgaps.size()/2)];
-    thres_gap = thres_gap < 0.2 ? 0.2 : thres_gap / 2 + 0.1;
-    cout<<"tsh:"<<thres_gap<<";";
+    thres_gap = thres_gap < min_gap ? min_gap : (thres_gap + min_gap) / 2;
+    // cout<<"tsh:"<<thres_gap<<";";
     // real pole has both side gaps > threshold
     // and has to be closer, not farther
     for(i = 0; i < gaps.size(); i++)
@@ -150,11 +161,11 @@ void rp_frame::remove_outline(void)
         }
     }
     options = alter;
-    cout<<"left "<<options.size()/2<<" pair(s): ";
-    for(i = 0; i < options.size(); i++){
-        cout<<options[i].distance<<",";
-    }
-    cout<<endl;
+    // cout<<"left "<<options.size()/2<<" pair(s): ";
+    // for(i = 0; i < options.size(); i++){
+    //     cout<<options[i].distance<<",";
+    // }
+    // cout<<endl;
 }
 
 vector<dt_point> rp_frame::sel_best_pair(void)
@@ -182,4 +193,56 @@ vector<dt_point> rp_frame::sel_best_pair(void)
     }
     closest = 10;
     return pole;
+}
+
+int rp_frame::isConsistent(void)
+{
+    int i = 0;
+    float dist_var, angle_var;
+    bool near_away;
+    dist_var = -1;
+    angle_var = -1;
+    // wait for data
+    if(history.type == -1){
+        cout<<"init"<<endl;
+        return 2;
+    }
+    // last data and this data gives no pole
+    if(history.distance == 0 && best_pole.distance == 0){
+        near_away = true;
+    }
+    // last pole or this pole is out of sight
+    else if(history.distance == 0 || best_pole.distance == 0){
+        // that pole is close to the edge
+        // when no pole, angle is set to middle, wont pass
+        if((history.angle - angle.min < 2 * angle.inc || \
+            angle.max - history.angle < 2 * angle.inc)  || \
+           (best_pole.angle - angle.min < 2 * angle.inc || \
+            angle.max - best_pole.angle < 2 * angle.inc)){
+                near_away = true;
+        }
+        else{ near_away = false; }
+    }
+    else{
+        dist_var = best_pole.distance - history.distance;
+        dist_var = dist_var < 0 ? -dist_var : dist_var;
+        angle_var = best_pole.angle - history.angle;
+        angle_var = angle_var < 0 ? -angle_var : angle_var;
+        if(dist_var < consistent_dist && angle_var < consistent_angle){
+            near_away = true;
+        }
+        else{ near_away = false; }
+    }
+    // cout<<"consistency: "<<dist_var<<","<<angle_var<<","<<near_away<<endl;
+
+    /*      reliable(1)     dubious(2)      discarded(0)
+    near(T) reliable        reliable        dubious
+    away(F) discarded       dubious         dubious
+    */
+    if(near_away){
+        return history.type == 0 ? 2 : 1;
+    }
+    else{
+        return history.type == 1 ? 0 : 2;
+    }
 }
