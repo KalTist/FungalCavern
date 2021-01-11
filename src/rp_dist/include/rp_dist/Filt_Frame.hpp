@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
+// #include <iomanip>
 #include <algorithm>
 #define pi 3.1416
 
@@ -28,6 +29,10 @@ class rp_frame
 private:
     dt_angle angle;
     float closest;
+    float toler_depth_var;
+    float toler_consis_ang;
+    float min_gap;
+    float max_gap;
     vector<float> distances;
     vector<dt_point> jmp_pts;
     vector<dt_point> options;
@@ -50,7 +55,6 @@ public:
     // these parameters can be changed outside
     float jump_thres;
     float pole_width;// specially using unit: cm
-    float min_gap;
     float consistent_dist;
     float consistent_angle;
     // best_pole can be directly read outside

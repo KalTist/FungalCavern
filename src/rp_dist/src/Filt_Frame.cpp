@@ -7,7 +7,10 @@ rp_frame::rp_frame(void)
     // default, good in overall
     jump_thres = 0.2;
     pole_width = 2.5;
-    min_gap = 0.2;
+    toler_depth_var = 0.05;
+    toler_consis_ang = 4;
+    min_gap = 0.15;
+    max_gap = 0.6;
     closest = 10;
     consistent_dist = 0.1;
     consistent_angle = 0.09;
@@ -48,6 +51,7 @@ void rp_frame::get_jmp_pts(void)
             pt.angle = angle.min + i * angle.inc;
             pt.distance = distances[i];
             jmp_pts.push_back(pt);
+            // cout<<fixed<<setprecision(2)<<pt.distance<<";";
         }
         else if(change < -jump_thres){
             // jump closer
@@ -55,9 +59,10 @@ void rp_frame::get_jmp_pts(void)
             pt.angle = angle.min + (i+1) * angle.inc;
             pt.distance = distances[i+1];
             jmp_pts.push_back(pt);
+            // cout<<fixed<<setprecision(2)<<pt.distance<<",";
         }
     }
-    // cout<<jmp_pts.size()<<endl;
+    // cout<<endl;
 }
 
 dt_point rp_frame::get_pole(void)
@@ -95,12 +100,13 @@ void rp_frame::possible_poles(void)
     options.clear();
     // cout<<"options: ";
     closest = 10;
+    // all high tolerance, considering error and rplidar movement
     for(i = 0; i < jmp_pts.size()-1; i++)
     {   // rule_one: far-near-far jump points pair
         if(jmp_pts[i].type == -1 && jmp_pts[i+1].type == 1){
             dist_var = jmp_pts[i].distance - jmp_pts[i+1].distance;
             // rule_two: left and right side of pole have same distance
-            if(dist_var > - 0.03 && dist_var < 0.03){
+            if(dist_var > -toler_depth_var && dist_var < toler_depth_var){
                 angle_var = jmp_pts[i+1].angle - jmp_pts[i].angle;
                 width_var = angle_var * jmp_pts[i].distance - pole_width;
                 // rule_three: pole has a certain width
@@ -116,7 +122,7 @@ void rp_frame::possible_poles(void)
             }
         }
     }
-    // cout<<"num: "<<options.size()<<endl;
+    // cout<<endl;
     return;
 }
 void rp_frame::remove_outline(void)
@@ -132,13 +138,16 @@ void rp_frame::remove_outline(void)
     // cout<<"Filted: ";
     gaps.clear();
     // calculate gaps between possible poles
+    // cout<<"gaps: ";
     for(i = 2; i < options.size(); i += 2)
     {
         gap_r = options[i].distance - options[i-1].distance;
         gap_a = gap_r < 0 ? options[i].distance : options[i-1].distance;
         gap_a *= (options[i].angle - options[i-1].angle);
         gaps.push_back(gap_r*gap_r + gap_a*gap_a);
+        // cout<<fixed<<setprecision(3)<<gap_r*gap_r + gap_a*gap_a<<",";
     }
+    // cout<<endl;
     if(gaps.empty()){
         return;// only one possible pole
     }
@@ -146,8 +155,9 @@ void rp_frame::remove_outline(void)
     sortgaps = gaps;
     sort(sortgaps.begin(), sortgaps.end());
     thres_gap = sortgaps[int(sortgaps.size()/2)];
-    thres_gap = thres_gap < min_gap ? min_gap : (thres_gap + min_gap) / 2;
-    // cout<<"tsh:"<<thres_gap<<";";
+    thres_gap = thres_gap < min_gap ? min_gap : (thres_gap > max_gap ? max_gap : thres_gap);
+    thres_gap = (thres_gap + min_gap) / 2;
+    // cout<<"tsh:"<<thres_gap<<endl;
     // real pole has both side gaps > threshold
     // and has to be closer, not farther
     for(i = 0; i < gaps.size(); i++)
@@ -162,7 +172,7 @@ void rp_frame::remove_outline(void)
     }
     options = alter;
     // cout<<"left "<<options.size()/2<<" pair(s): ";
-    // for(i = 0; i < options.size(); i++){
+    // for(i = 0; i < options.size(); i += 2){
     //     cout<<options[i].distance<<",";
     // }
     // cout<<endl;
@@ -213,12 +223,12 @@ int rp_frame::isConsistent(void)
     }
     // last pole or this pole is out of sight
     else if(history.distance == 0 || best_pole.distance == 0){
-        // that pole is close to the edge
-        // when no pole, angle is set to middle, wont pass
-        if((history.angle - angle.min < 2 * angle.inc || \
-            angle.max - history.angle < 2 * angle.inc)  || \
-           (best_pole.angle - angle.min < 2 * angle.inc || \
-            angle.max - best_pole.angle < 2 * angle.inc)){
+        // check if the other pole is close to the edge
+        // angle of the pole out of sight is set to middle
+        if((history.angle - angle.min < toler_consis_ang * angle.inc || \
+            angle.max - history.angle < toler_consis_ang * angle.inc)  || \
+           (best_pole.angle - angle.min < toler_consis_ang * angle.inc || \
+            angle.max - best_pole.angle < toler_consis_ang * angle.inc)){
                 near_away = true;
         }
         else{ near_away = false; }

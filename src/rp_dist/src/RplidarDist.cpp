@@ -35,6 +35,7 @@ void RplidarDistNode::Rplidar_Callback(const sensor_msgs::LaserScan::ConstPtr& s
     this->rpfilter.set_angle(scan->angle_min, scan->angle_max, scan->angle_increment);
     pole = this->rpfilter.get_pole();
     if(pole.distance == 0){ pole.angle = 0; }
+    // set angle = 0 for print, originally (angle_min + angle_max) / 2 (approximately 0)
     if(pole.type == 0){
         std::cout<<"discarded:";
     }else if(pole.type == 1){
